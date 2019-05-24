@@ -1,0 +1,83 @@
+# skillet preamble information used by panhandler
+# ---------------------------------------------------------------------
+# unique snippet name
+name: ezhi-mySkillet-test
+# label used for menu selection
+label: ezhi-mySkillet-test-label
+description: this is what tag edl
+
+# type of device configuration
+# common types are panorama, panos, and template
+# https://github.com/PaloAltoNetworks/panhandler/blob/develop/docs/metadata_configuration.rst
+type: panos
+# preload static or default-based templates
+extends:
+
+# grouping of like snippets for dynamic menu creation in panhandler
+labels:
+  collection:
+    - ezhi-myCollection
+
+# ---------------------------------------------------------------------
+# end of preamble section
+
+# variables section
+# ---------------------------------------------------------------------
+# variables used in the configuration templates
+# type_hint defines the form field used by panhandler
+# type_hints can be text, ip_address, or dropdown
+variables:
+  - name: edl_name
+    description: the edl bane
+    default: my_edl
+    type_hint: text
+  - name: edl_description
+    description: what is the edl
+    default: the edl desc
+    type_hint: text
+  - name: edl_url
+    description: what is the edl url
+    default: https://someuel.com
+    type_hint: text
+  - name: tag_name
+    description: what is the tag
+    default: the tag name
+    type_hint: text
+  - name: tag_color
+    description: what is the tag color
+    default: the tag color
+    type_hint: dropdown
+    dd_list:
+      - key: blue
+        value: color3
+      - key: green
+        value: color2
+      - key: orange
+        value: color6
+      - key: red
+        value: color1
+  - name: tag_description
+    description: what is the tag description
+    default: the tag desc
+    type_hint: text
+
+# ---------------------------------------------------------------------
+# end of variables section
+
+# snippets section
+# ---------------------------------------------------------------------
+# snippets used for api configuration including xpath and element as file name
+# files will load in the order listed
+snippets:
+  - name: edl
+    xpath: /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='vsys1']/external-list
+    file: edl.xml
+  - name: tag
+    xpath: /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='vsys1']/tag
+    file: tag.xml
+  - name: rules
+    xpath: /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='vsys1']/rulebase/security/rules
+    file: rules.xml
+
+# ---------------------------------------------------------------------
+# end of snippets section
